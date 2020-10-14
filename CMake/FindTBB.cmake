@@ -1,5 +1,5 @@
 find_path(TBB_INCLUDE_DIR tbb/tbb.h
-          HINTS $ENV{TBBROOT}/include )
+    HINTS $ENV{TBBROOT}/include $ENV{TBB_INCLUDE})
 
 # Check OS-specific env variables for libraries.
 if (DEFINED ENV{LD_LIBRARY_PATH})
@@ -13,7 +13,7 @@ else()
 endif()
 
 find_library(TBB_LIBRARY tbb
-             HINTS ${TBB_INCLUDE_DIR}/../lib ${LD_LIBRARY_DIR_LIST} )
+             HINTS ${TBB_INCLUDE_DIR}/../lib $ENV{TBB_LINK} ${LD_LIBRARY_DIR_LIST} )
 
 if(TBB_INCLUDE_DIR AND EXISTS "${TBB_INCLUDE_DIR}/tbb/tbb_stddef.h")
     file(STRINGS "${TBB_INCLUDE_DIR}/tbb/tbb_stddef.h" TBB_H REGEX "^#define TBB_VERSION_.*$")
